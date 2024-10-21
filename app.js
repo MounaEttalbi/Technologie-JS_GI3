@@ -29,7 +29,7 @@ app.get('/items', (req, res) => {
   res.json(items); // Répondre avec le tableau des éléments
 });
 
-
+// Endpoint GET pour récupérer un élément par ID
 app.get('/items/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const item = items.find(item => item.id === id);
@@ -41,6 +41,7 @@ app.get('/items/:id', (req, res) => {
     res.json(item);
   });
   
+  // Endpoint PUT pour mettre à jour un élément
   app.put('/items/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const index = items.findIndex(item => item.id === id);
@@ -53,3 +54,14 @@ app.get('/items/:id', (req, res) => {
     res.send(items[index]);
   });
   
+
+  // Endpoint DELETE pour supprimer un élément
+app.delete('/items/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (items[id]) {
+      items.splice(id, 1); // Retirer l'élément du tableau
+      res.status(204).send(); // Répondre sans contenu
+  } else {
+      res.status(404).json({ message: 'Élément non trouvé' });
+  }
+});
