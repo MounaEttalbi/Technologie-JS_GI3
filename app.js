@@ -29,3 +29,27 @@ app.get('/items', (req, res) => {
   res.json(items); // Répondre avec le tableau des éléments
 });
 
+
+app.get('/items/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const item = items.find(item => item.id === id);
+    
+    if (!item) {
+      return res.status(404).send('Item non trouvé');
+    }
+    
+    res.json(item);
+  });
+  
+  app.put('/items/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = items.findIndex(item => item.id === id);
+    
+    if (index === -1) {
+      return res.status(404).send('Item non trouvé');
+    }
+    
+    items[index] = req.body;  // Remplace l'élément par les nouvelles données
+    res.send(items[index]);
+  });
+  
