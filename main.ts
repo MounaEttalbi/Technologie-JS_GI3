@@ -14,7 +14,7 @@ bookForm.addEventListener("submit", (e: Event) => {
     const format = (document.getElementById("format") as HTMLInputElement).value;
     const suggestedBy = (document.getElementById("suggestedBy") as HTMLInputElement).value;
 
-    const newBook = new Book(title, author, pages,pagesRead, status, format, suggestedBy,price);
+    const newBook = new Book(title, author, pages,status,price,pagesRead, format, suggestedBy);
     addBook(newBook);
     bookForm.reset();
 });
