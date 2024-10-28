@@ -1,48 +1,75 @@
-import Book from "./Book";
-import fs from "fs";
+import Book from './Book'; // Ensure you import the Book class
 
-const bookForm = document.getElementById("book-form") as HTMLFormElement;
-const bookList = document.getElementById("book-list") as HTMLDivElement;
-const csvFilePath = "./data.csv";
+const bookForm = document.getElementById('book-form') as HTMLFormElement;
+const bookList = document.getElementById('books') as HTMLUListElement;
+const stats = document.getElementById('stats') as HTMLParagraphElement;
 
-// Écrire les en-têtes CSV si le fichier est vide ou n'existe pas encore
-if (!fs.existsSync(csvFilePath) || fs.readFileSync(csvFilePath, "utf8").trim() === "") {
-    fs.writeFileSync(csvFilePath, "Title,Author,Pages,Status,Price,PagesRead,Format,SuggestedBy\n");
-}
+let books: Book[] = [];
 
-bookForm.addEventListener("submit", (e: Event) => {
-    e.preventDefault();
-    const title = (document.getElementById("title") as HTMLInputElement).value;
-    const author = (document.getElementById("author") as HTMLInputElement).value;
-    const pages = +(document.getElementById("pages") as HTMLInputElement).value;
-    const status = (document.getElementById("status") as HTMLInputElement).value;
-    const price = +(document.getElementById("price") as HTMLInputElement).value;
-    const pagesRead = +(document.getElementById("pagesRead") as HTMLInputElement).value;
-    const format = (document.getElementById("format") as HTMLInputElement).value;
-    const suggestedBy = (document.getElementById("suggestedBy") as HTMLInputElement).value;
+// Function to update the book list in the UI
+function updateBookList() {
+    bookList.innerHTML = ''; // Clear the current list
+    let totalBooksRead = 0;
+    let totalPagesRead = 0;
 
-    const newBook = new Book(title, author, pages, status, price, pagesRead, format, suggestedBy);
-    addBook(newBook);
-    saveBookToCSV(newBook);
-    bookForm.reset();
-});
-
-function addBook(book: Book) {
-    const bookDiv = document.createElement("div");
-    bookDiv.innerHTML = `
-        <p>${book.title} by ${book.author}</p>
-        <p>Progress: ${(book.pagesRead / book.pages) * 100}%</p>
-    `;
-    bookList.appendChild(bookDiv);
-}
-
-function saveBookToCSV(book: Book) {
-    const csvRow = `"${book.title}","${book.author}",${book.pages},"${book.status}",${book.price},${book.pagesRead},"${book.format}","${book.suggestedBy}"\n`;
-    fs.appendFile(csvFilePath, csvRow, (err:any) => {
-        if (err) {
-            console.error("Erreur lors de l'enregistrement du livre dans le fichier CSV :", err);
+    books.forEach((book) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${book.title} by ${book.author} - Pages Read: ${book.pagesRead}/${book.pages}`;
+        bookList.appendChild(listItem);
+        if (book.finished) {
+            totalBooksRead++;
+            totalPagesRead += book.pages;
         } else {
-            console.log("Livre ajouté dans le fichier CSV avec succès.");
+            totalPagesRead += book.pagesRead;
         }
     });
+
+    stats.textContent = `Total Books Read: ${totalBooksRead}, Total Pages Read: ${totalPagesRead}`;
 }
+
+
+// Function to handle form submission
+async function handleFormSubmit(event: Event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const title = (document.getElementById('title') as HTMLInputElement).value;
+    const author = (document.getElementById('author') as HTMLInputElement).value;
+    const pages = Number((document.getElementById('pages') as HTMLInputElement).value);
+    const pagesRead = Number((document.getElementById('pagesRead') as HTMLInputElement).value);
+    const status = (document.getElementById('status') as HTMLSelectElement).value;
+    const format = (document.getElementById('format') as HTMLSelectElement).value;
+    const suggestedBy = (document.getElementById('suggestedBy') as HTMLInputElement).value;
+    const price = Number((document.getElementById('price') as HTMLInputElement).value);
+
+    // Create a new book instance
+    const newBook = new Book(title, author, pages, status, price, pagesRead, format, suggestedBy);
+
+    // Send data to server to save in CSV
+    await saveBookToCSV(newBook);
+
+    // Clear form fields
+    bookForm.reset();
+}
+
+
+// Function to save the book to a CSV file
+async function saveBookToCSV(book: Book) {
+    try {
+        const response = await fetch('/save-book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(book),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to save book');
+        }
+    } catch (error) {
+        console.error('Error saving book:', error);
+    }
+}
+
+// Add event listener for form submission
+bookForm.addEventListener('submit', handleFormSubmit);

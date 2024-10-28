@@ -1,5 +1,6 @@
 {
   "name": "tp_typescript",
+  "type": "module", 
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -14,6 +15,10 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "csv-writer": "^1.6.0",
+    "express": "^4.21.1",
     "fs": "^0.0.1-security"
   }
+  
 }
