@@ -13,17 +13,18 @@ export default class Book {
       title: string,
       author: string,
       pages: number,
-      pagesRead: number,
       status: string,
+      price: number,
+      pagesRead: number,
       format: string,
       suggestedBy: string,
-      price: number
+      
     ) {
       this.title = title;
       this.author = author;
       this.pages = pages;
-      this.pagesRead = pagesRead;
       this.status = status;
+      this.pagesRead = pagesRead;
       this.format = format;
       this.suggestedBy = suggestedBy;
       this.price = price;
