@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Reading Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script defer src="main.ts"></script>
+  <style>
+    /* Styles personnalisés supplémentaires */
+    body {
+      background-color: #a2caf1; /* Couleur de fond douce */
+    }
+  
+    .container {
+      max-width: 800px; /* Largeur maximum du conteneur */
+    }
+  
+    h1 {
+      color: #171e29; /* Couleur du titre */
+     
+    }
+  
+    h2 {
+      color: #1b5ce9; /* Couleur des sous-titres */
+      margin-left: 300px;
+    }
+  
+    .bg-white {
+      background-color: #ffffff; /* Fond blanc pour les formulaires et la liste */
+      border: 1px solid #e5e7eb; /* Bordure grise */
+    }
+  
+    input, select {
+      transition: border-color 0.2s; /* Animation douce pour les bordures */
+    }
+  
+    input:focus, select:focus {
+      border-color: #37e91f; /* Bordure bleue lors du focus */
+      outline: none; /* Retirer l'outline par défaut */
+    }
+  
+    button {
+      transition: background-color 0.3s, transform 0.2s; /* Animation pour les boutons */
+    }
+  
+    button:hover {
+      background-color: #25eb35; /* Couleur du bouton au survol */
+      transform: scale(1.05); /* Légère augmentation de la taille au survol */
+    }
+  
+    #book-list ul {
+      padding-left: 1.25rem; /* Espace à gauche pour la liste */
+    }
+  
+    #book-list li {
+      padding: 0.5rem 0; /* Espace entre les éléments de la liste */
+    }
+  
+    #stats {
+      font-style: italic; /* Italique pour les statistiques */
+    }
+  
+    /* Effets de boîte d'ombre */
+    .shadow-md {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  
+>>>>>>> d8df14aa3adb9fd694d0a5896856c19259d5199f
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-10">
+    <h1 class="text-3xl font-bold mb-6 text-center">Book Reading Tracker</h1>
+    <form id="book-form" class="bg-white p-6 rounded shadow-md mb-10">
+      <h2 class="text-2xl font-bold mb-4">Add New Book</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700">Title</label>
+        <input type="text" id="title" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Author</label>
+        <input type="text" id="author" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Number of Pages</label>
+        <input type="number" id="pages" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Pages Read</label>
+        <input type="number" id="pagesRead" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Status</label>
+        <select id="status" class="w-full p-2 border rounded">
+          <option>Read</option>
+          <option>Re-read</option>
+          <option>DNF</option>
+          <option>Currently reading</option>
+          <option>Returned Unread</option>
+          <option>Want to read</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Format</label>
+        <select id="format" class="w-full p-2 border rounded">
+          <option>Print</option>
+          <option>PDF</option>
+          <option>Ebook</option>
+          <option>AudioBook</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Suggested By</label>
+        <input type="text" id="suggestedBy" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Price</label>
+        <input type="number" id="price" class="w-full p-2 border rounded">
+      </div>
+      <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="addBook()">Add Book</button>
+    </form>
+
+    <div id="book-list" class="bg-white p-6 rounded shadow-md">
+      <h2 class="text-2xl font-bold mb-4">Book List</h2>
+      <ul id="books" class="list-disc list-inside"></ul>
+      <p class="text-gray-700 mt-4" id="stats">Total Books Read: 0, Total Pages Read: 0</p>
+    </div>
+  </div>
+</body>
+</html>
