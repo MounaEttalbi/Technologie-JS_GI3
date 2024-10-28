@@ -14,12 +14,12 @@ bookForm.addEventListener("submit", (e: Event) => {
     const format = (document.getElementById("format") as HTMLInputElement).value;
     const suggestedBy = (document.getElementById("suggestedBy") as HTMLInputElement).value;
 
-    const newBook = new Book(title, author, pages, status, price, pagesRead, format, suggestedBy);
-    addBookToUI(newBook);
+    const newBook = new Book(title, author, pages,pagesRead, status, format, suggestedBy,price);
+    addBook(newBook);
     bookForm.reset();
 });
 
-function addBookToUI(book: Book) {
+function addBook(book: Book) {
     const bookDiv = document.createElement("div");
     bookDiv.innerHTML = `
         <p>${book.title} by ${book.author}</p>
