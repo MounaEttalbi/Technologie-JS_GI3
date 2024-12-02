@@ -1,12 +1,19 @@
 <div *ngIf="books.length > 0; else noBooks">
-  <p>Books</p>
   <ul>
-      <li *ngFor="let book of books">
-          <input type="checkbox" [checked]="book.isRead" />
-          {{ book.name }}
-      </li>
+    <li *ngFor="let book of books">
+      <input type="checkbox" [checked]="book.isRead" />
+      <span>{{ book.name }}</span>
+    </li>
   </ul>
+
+  <hr />
+  
+  <!-- Champ d'entrée avec Two-Way Binding -->
+  <label for="bookInput">Selected Book:</label>
+  <input id="bookInput" type="text" [(ngModel)]="selectedBook" placeholder="Enter book name" />
+  <p>You selected: {{ selectedBook }}</p>
 </div>
+
 <ng-template #noBooks>
   <p>No books available!</p>
 </ng-template>
