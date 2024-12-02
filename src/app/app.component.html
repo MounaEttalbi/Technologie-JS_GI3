@@ -1,4 +1,5 @@
 <div *ngIf="books.length > 0; else noBooks">
+  <p>Books</p>
   <ul>
       <li *ngFor="let book of books">
           <input type="checkbox" [checked]="book.isRead" />
