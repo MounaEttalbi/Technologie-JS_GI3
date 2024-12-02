@@ -1,0 +1,58 @@
+/* Conteneur principal */
+div {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #a6dfb7fd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Liste de livres */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Élément de la liste */
+  li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Dernier élément sans bordure */
+  li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Checkbox */
+  input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  
+  /* Nom du livre */
+  li:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+  }
+  
+  li span {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Message d'absence de livres */
+  p {
+    font-size: 18px;
+    text-align: center;
+    color: #555;
+    font-style: italic;
+  }
+  
